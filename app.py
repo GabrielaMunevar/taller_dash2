@@ -1,4 +1,5 @@
 import dash
+import os
 from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
@@ -6,8 +7,10 @@ import plotly.graph_objs as go
 import numpy as np
 import pandas as pd
 import datetime as dt
+from dotenv import load_dotenv
 
-
+load_dotenv()
+pathEnergia = os.getenv("pathEnergia")
 
 app = dash.Dash(
     __name__,
@@ -22,7 +25,7 @@ app.config.suppress_callback_exceptions = True
 # Load data from csv
 def load_data():
     
-    df = pd.read_csv("datos_energia.csv")
+    df = pd.read_csv(pathEnergia)
     df["time"] = pd.to_datetime(df["time"])
     df.set_index("time", inplace=True)
     
